@@ -27,13 +27,64 @@ def register(request):
 
     )
 
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .models import Reservation, Review, Room, RoomType
+
+
 def room_list(request):
-    rooms = Room.objects.all()
+    rooms = Room.objects.select_related(
+        'hotel',
+        'room_type'
+    ).prefetch_related(
+        'amenities'
+    )
+
+    search = request.GET.get('search', '')
+    room_type = request.GET.get('room_type', '')
+    min_capacity = request.GET.get('min_capacity', '')
+    max_price = request.GET.get('max_price', '')
+
+    if search:
+        rooms = rooms.filter(
+            hotel__name__icontains=search
+        )
+
+    if room_type:
+        rooms = rooms.filter(
+            room_type_id=room_type
+        )
+
+    if min_capacity:
+        rooms = rooms.filter(
+            capacity__gte=min_capacity
+        )
+
+    if max_price:
+        rooms = rooms.filter(
+            price__lte=max_price
+        )
+
+    paginator = Paginator(rooms, 6)
+
+    page_number = request.GET.get('page')
+
+    page_obj = paginator.get_page(page_number)
+
+    room_types = RoomType.objects.all()
 
     return render(
         request,
         'project_first_app/room_list.html',
-        {'rooms': rooms}
+        {
+            'page_obj': page_obj,
+            'room_types': room_types,
+            'search': search,
+            'selected_room_type': room_type,
+            'min_capacity': min_capacity,
+            'max_price': max_price,
+        }
     )
 
 
