@@ -43,7 +43,7 @@
 
                 <option
                     value="{{ type.id }}"
-                    {% if selected_room_type == type.id|stringformat:"s" %}
+                    {% if selected_room_type == type.id|string %}
                         selected
                     {% endif %}
                 >
@@ -95,7 +95,7 @@
         </button>
 
         <a
-            href="{% url 'room_list' %}"
+            href="{{ url('room_list') }}"
             class="btn btn-secondary"
         >
             Сбросить
@@ -132,7 +132,7 @@
 
                     <p>
                         <strong>Стоимость:</strong>
-                        {{ room.price }} ₽
+                        {{ room.price|localize }} ₽
                     </p>
 
                     <p>
@@ -141,7 +141,7 @@
                     </p>
 
                     <a
-                        href="{% url 'room_detail' room.id %}"
+                        href="{{ url('room_detail', args=[room.id]) }}"
                         class="btn btn-primary"
                     >
                         Подробнее
@@ -153,7 +153,7 @@
 
         </div>
 
-    {% empty %}
+    {% else %}
 
         <p>По заданным параметрам номеров не найдено.</p>
 
@@ -168,13 +168,13 @@
 
     <ul class="pagination">
 
-        {% if page_obj.has_previous %}
+        {% if page_obj.has_previous() %}
 
             <li class="page-item">
 
                 <a
                     class="page-link"
-                    href="?page={{ page_obj.previous_page_number }}&search={{ search }}&room_type={{ selected_room_type }}&min_capacity={{ min_capacity }}&max_price={{ max_price }}"
+                    href="?page={{ page_obj.previous_page_number() }}&search={{ search|urlencode }}&room_type={{ selected_room_type }}&min_capacity={{ min_capacity }}&max_price={{ max_price }}"
                 >
                     Назад
                 </a>
@@ -196,7 +196,7 @@
 
                 <a
                     class="page-link"
-                    href="?page={{ num }}&search={{ search }}&room_type={{ selected_room_type }}&min_capacity={{ min_capacity }}&max_price={{ max_price }}"
+                    href="?page={{ num }}&search={{ search|urlencode }}&room_type={{ selected_room_type }}&min_capacity={{ min_capacity }}&max_price={{ max_price }}"
                 >
                     {{ num }}
                 </a>
@@ -206,13 +206,13 @@
         {% endfor %}
 
 
-        {% if page_obj.has_next %}
+        {% if page_obj.has_next() %}
 
             <li class="page-item">
 
                 <a
                     class="page-link"
-                    href="?page={{ page_obj.next_page_number }}&search={{ search }}&room_type={{ selected_room_type }}&min_capacity={{ min_capacity }}&max_price={{ max_price }}"
+                    href="?page={{ page_obj.next_page_number() }}&search={{ search|urlencode }}&room_type={{ selected_room_type }}&min_capacity={{ min_capacity }}&max_price={{ max_price }}"
                 >
                     Далее
                 </a>

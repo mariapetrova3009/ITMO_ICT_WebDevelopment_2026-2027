@@ -24,23 +24,23 @@
 
             <p>
                 <strong>Заезд:</strong>
-                {{ reservation.check_in }}
+                {{ reservation.check_in|localize }}
             </p>
 
             <p>
                 <strong>Выезд:</strong>
-                {{ reservation.check_out }}
+                {{ reservation.check_out|localize }}
             </p>
 
             <a
-                href="{% url 'edit_reservation' reservation.id %}"
+                href="{{ url('edit_reservation', args=[reservation.id]) }}"
                 class="btn btn-warning"
             >
                 Редактировать
             </a>
 
             <a
-                href="{% url 'delete_reservation' reservation.id %}"
+                href="{{ url('delete_reservation', args=[reservation.id]) }}"
                 class="btn btn-danger"
             >
                 Удалить
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-{% empty %}
+{% else %}
 
     <p>У вас пока нет бронирований.</p>
 

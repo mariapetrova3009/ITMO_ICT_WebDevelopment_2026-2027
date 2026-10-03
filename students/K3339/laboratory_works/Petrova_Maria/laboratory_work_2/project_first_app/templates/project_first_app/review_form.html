@@ -15,9 +15,9 @@
 
 <form method="post">
 
-    {% csrf_token %}
+    {{ csrf_input }}
 
-    {{ form.as_p }}
+    {{ form.as_p() }}
 
     <button
         type="submit"
@@ -27,7 +27,7 @@
     </button>
 
     <a
-        href="{% url 'room_detail' room.id %}"
+        href="{{ url('room_detail', args=[room.id]) }}"
         class="btn btn-secondary"
     >
         Отмена

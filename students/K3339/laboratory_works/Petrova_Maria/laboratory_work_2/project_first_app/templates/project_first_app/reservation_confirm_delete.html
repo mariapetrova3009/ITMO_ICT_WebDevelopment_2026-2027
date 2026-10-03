@@ -12,13 +12,13 @@
 <p>
     Вы действительно хотите удалить бронирование номера
     <strong>{{ reservation.room.number }}</strong>
-    с {{ reservation.check_in }}
-    по {{ reservation.check_out }}?
+    с {{ reservation.check_in|localize }}
+    по {{ reservation.check_out|localize }}?
 </p>
 
 <form method="post">
 
-    {% csrf_token %}
+    {{ csrf_input }}
 
     <button
         type="submit"
@@ -28,7 +28,7 @@
     </button>
 
     <a
-        href="{% url 'my_reservations' %}"
+        href="{{ url('my_reservations') }}"
         class="btn btn-secondary"
     >
         Отмена

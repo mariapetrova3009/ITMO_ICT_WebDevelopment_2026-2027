@@ -24,9 +24,9 @@
 
 <form method="post">
 
-    {% csrf_token %}
+    {{ csrf_input }}
 
-    {{ form.as_p }}
+    {{ form.as_p() }}
 
     <button
         type="submit"
@@ -40,7 +40,7 @@
     </button>
 
     <a
-        href="{% url 'my_reservations' %}"
+        href="{{ url('my_reservations') }}"
         class="btn btn-secondary"
     >
         Отмена

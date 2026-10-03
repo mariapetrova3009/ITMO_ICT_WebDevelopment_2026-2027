@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from datetime import timedelta
 from django.utils import timezone
+from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from .models import Reservation, Review, Room, Stay
 from django.contrib.auth.decorators import login_required
@@ -35,11 +36,11 @@ from .models import Reservation, Review, Room, RoomType
 
 def room_list(request):
     rooms = Room.objects.select_related(
-        'hotel',
-        'room_type'
+    'hotel',
+    'room_type'
     ).prefetch_related(
         'amenities'
-    )
+    ).order_by('id')
 
     search = request.GET.get('search', '')
     room_type = request.GET.get('room_type', '')
@@ -102,7 +103,7 @@ def create_reservation(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
 
     if request.method == 'POST':
-        form = ReservationForm(request.POST)
+        form = ReservationForm(request.POST, instance=Reservation(room=room))
 
         if form.is_valid():
             reservation = form.save(commit=False)
@@ -115,7 +116,7 @@ def create_reservation(request, room_id):
             return redirect('my_reservations')
 
     else:
-        form = ReservationForm()
+        form = ReservationForm(instance=Reservation(room=room))
 
     return render(
         request,
@@ -219,10 +220,12 @@ def recent_guests(request):
     if not request.user.is_staff:
         return redirect('room_list')
 
-    month_ago = timezone.now() - timedelta(days=30)
+    current_datetime = timezone.now()
+    month_ago = current_datetime - timedelta(days=30)
 
     stays = Stay.objects.filter(
-        check_in__gte=month_ago
+        Q(check_out__isnull=True) | Q(check_out__gte=month_ago),
+        check_in__lte=current_datetime,
     ).select_related(
         'user',
         'room',

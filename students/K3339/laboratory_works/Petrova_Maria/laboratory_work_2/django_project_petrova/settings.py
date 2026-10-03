@@ -54,6 +54,18 @@ ROOT_URLCONF = 'django_project_petrova.urls'
 
 TEMPLATES = [
     {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [BASE_DIR / 'project_first_app' / 'templates'],
+        'APP_DIRS': False,
+        'OPTIONS': {
+            'environment': 'django_project_petrova.jinja2.environment',
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
@@ -75,8 +87,12 @@ WSGI_APPLICATION = 'django_project_petrova.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hotel_db',
+        'USER': 'hotel_user',
+        'PASSWORD': 'hotel_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

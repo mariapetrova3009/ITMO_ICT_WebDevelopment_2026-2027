@@ -39,12 +39,12 @@
                     </td>
 
                     <td>
-                        {{ stay.check_in }}
+                        {{ stay.check_in|localize }}
                     </td>
 
                     <td>
                         {% if stay.check_out %}
-                            {{ stay.check_out }}
+                            {{ stay.check_out|localize }}
                         {% else %}
                             —
                         {% endif %}
@@ -59,7 +59,7 @@
                     </td>
                 </tr>
 
-            {% empty %}
+            {% else %}
 
                 <tr>
                     <td colspan="6">
