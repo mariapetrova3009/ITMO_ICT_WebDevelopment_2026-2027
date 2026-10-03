@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Петрова Мария">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Модель данных - Лабораторная работа №2 — Отели</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Лабораторная работа №2 — Отели</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Главная</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../task/" class="nav-link">Постановка задачи</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Модель данных</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../implementation/" class="nav-link">Реализация</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../interface/" class="nav-link">Интерфейс</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../admin/" class="nav-link">Администратор</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../conclusion/" class="nav-link">Вывод</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../task/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../implementation/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">Модель данных</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#user" class="nav-link">User</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#hotel" class="nav-link">Hotel</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#roomtype" class="nav-link">RoomType</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#amenity" class="nav-link">Amenity</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#room" class="nav-link">Room</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reservation" class="nav-link">Reservation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stay" class="nav-link">Stay</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#review" class="nav-link">Review</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">Связи моделей</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">Модель данных</h1>
+<p>Данные хранятся в PostgreSQL. Модели приложения описаны в <code>project_first_app/models.py</code>. Пользователь берётся из стандартной системы авторизации Django.</p>
+<h2 id="user">User</h2>
+<p>Используется стандартная модель <code>django.contrib.auth.models.User</code>. В проекте нужны имя пользователя <code>username</code>, пароль <code>password</code> и признак сотрудника <code>is_staff</code>. Пароль хранится в виде хеша. Связи с пользователем заданы через <code>settings.AUTH_USER_MODEL</code>.</p>
+<h2 id="hotel">Hotel</h2>
+<p>Хранит информацию об отеле:</p>
+<ul>
+<li><code>name</code> — название;</li>
+<li><code>owner_name</code> — имя владельца;</li>
+<li><code>address</code> — адрес;</li>
+<li><code>description</code> — описание, которое можно оставить пустым.</li>
+</ul>
+<h2 id="roomtype">RoomType</h2>
+<p>Хранит тип номера: <code>name</code> — название и <code>description</code> — необязательное описание.</p>
+<h2 id="amenity">Amenity</h2>
+<p>Хранит удобство номера. Поле <code>name</code> содержит его название, например Wi-Fi.</p>
+<h2 id="room">Room</h2>
+<p>Хранит сведения о номере:</p>
+<ul>
+<li><code>hotel</code> — отель;</li>
+<li><code>room_type</code> — тип номера;</li>
+<li><code>number</code> — обозначение номера;</li>
+<li><code>price</code> — стоимость;</li>
+<li><code>capacity</code> — вместимость;</li>
+<li><code>amenities</code> — удобства;</li>
+<li><code>description</code> — необязательное описание.</li>
+</ul>
+<h2 id="reservation">Reservation</h2>
+<p>Хранит бронирование:</p>
+<ul>
+<li><code>user</code> — пользователь;</li>
+<li><code>room</code> — номер;</li>
+<li><code>check_in</code> и <code>check_out</code> — даты заезда и выезда;</li>
+<li><code>created_at</code> — время создания записи, заполняется автоматически.</li>
+</ul>
+<h2 id="stay">Stay</h2>
+<p>Хранит запись о проживании. Поля <code>user</code> и <code>room</code> указывают пользователя и номер. Поля <code>check_in</code> и <code>check_out</code> содержат дату и время заселения и выселения. Пока человек проживает, <code>check_out</code> остаётся пустым.</p>
+<h2 id="review">Review</h2>
+<p>Хранит отзыв о номере:</p>
+<ul>
+<li><code>user</code> — автор;</li>
+<li><code>room</code> — номер;</li>
+<li><code>stay_from</code> и <code>stay_to</code> — даты периода проживания;</li>
+<li><code>text</code> — текст отзыва;</li>
+<li><code>rating</code> — оценка от 1 до 10;</li>
+<li><code>created_at</code> — время создания, заполняется автоматически.</li>
+</ul>
+<p>Ограничение оценки задано валидаторами <code>MinValueValidator(1)</code> и <code>MaxValueValidator(10)</code>.</p>
+<h2 id="_2">Связи моделей</h2>
+<p><code>ForeignKey</code> связывает номер с отелем и типом номера. Через него бронирования, проживания и отзывы связаны с пользователем и номером. Одному отелю соответствует несколько номеров. У пользователя и номера может быть несколько бронирований, проживаний и отзывов.</p>
+<p><code>ManyToManyField</code> используется для <code>Room.amenities</code>: у номера может быть несколько удобств, а одно удобство может встречаться в разных номерах.</p>
+<p>В схеме ниже стрелка идёт от записи к модели, на которую она ссылается:</p>
+<pre><code class="language-text">Room        → Hotel
+Room        → RoomType
+Room        ↔ Amenity
+Reservation → User, Room
+Stay        → User, Room
+Review      → User, Room
+</code></pre>
+<p><code>Reservation</code> и <code>Stay</code> — отдельные записи. Прямой связи между ними в модели нет.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
