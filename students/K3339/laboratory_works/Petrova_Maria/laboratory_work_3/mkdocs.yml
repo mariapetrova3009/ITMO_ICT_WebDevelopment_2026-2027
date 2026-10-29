@@ -1,0 +1,15 @@
+site_name: Администратор гостиницы — лабораторная №3
+site_description: Django, DRF, PostgreSQL, Djoser и ORM
+nav:
+  - Главная и запуск: index.md
+  - Практика 3.1: practice_3_1.md
+  - Практика 3.2: practice_3_2.md
+  - Модель данных: database.md
+  - CRUD API: api.md
+  - Бизнес-логика: business_logic.md
+  - Аналитика: analytics.md
+  - Квартальный отчёт: quarterly_report.md
+  - Авторизация: authentication.md
+theme:
+  name: mkdocs
+  locale: ru
