@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Бизнес-логика - Администратор гостиницы — лабораторная №3</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Администратор гостиницы — лабораторная №3</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Главная и запуск</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../practice_3_1/" class="nav-link">Практика 3.1</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../practice_3_2/" class="nav-link">Практика 3.2</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../database/" class="nav-link">Модель данных</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../api/" class="nav-link">CRUD API</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Бизнес-логика</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../analytics/" class="nav-link">Аналитика</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../quarterly_report/" class="nav-link">Квартальный отчёт</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../authentication/" class="nav-link">Авторизация</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../api/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../analytics/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#-" class="nav-link">Бизнес-операции</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">Заселение</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">Выселение</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">Сотрудники и уборка</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#django-admin" class="nav-link">Django Admin</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="-">Бизнес-операции</h1>
+<p>Все операции доступны только активным администраторам гостиницы (<code>is_staff=True</code>).
+Изменяющий запрос с сессией требует CSRF-токен. Токен передаётся в Authorization.</p>
+<h2 id="_1">Заселение</h2>
+<p>POST <code>/api/check-in/</code>:</p>
+<pre><code class="language-json">{&quot;room&quot;: 1, &quot;guests&quot;: [1, 2], &quot;check_in&quot;: &quot;2026-11-01&quot;, &quot;planned_check_out&quot;: &quot;2026-11-05&quot;}
+</code></pre>
+<p>Ответ 201:</p>
+<pre><code class="language-json">{&quot;id&quot;: 1, &quot;room&quot;: 1, &quot;check_in&quot;: &quot;2026-11-01&quot;, &quot;planned_check_out&quot;: &quot;2026-11-05&quot;, &quot;actual_check_out&quot;: null, &quot;price_per_night&quot;: &quot;5000.00&quot;, &quot;guests&quot;: [1, 2]}
+</code></pre>
+<p>Проверяются существование номера и гостей, непустая группа без повторов,
+вместимость, выезд строго позже заезда, занятость номера и пересечение
+проживаний каждого гостя. Тариф определяется сервером; передавать price_per_night нельзя.
+Создаются одна Accommodation и несколько Stay. Транзакция откатывается при ошибке.
+Для конкурирующих запросов сначала блокируются гости по ID, затем номер
+через select_for_update().</p>
+<p>Периоды считаются полуоткрытыми: <code>[check_in, check_out)</code>. Конец — фактический выезд,
+если заполнен, иначе плановый (Coalesce в ORM). Поэтому в день выезда можно заселить
+следующую группу. Будущие даты разрешены. NULL actual_check_out означает, что
+выселение ещё не оформлено, но расчёт пересечений всё равно использует плановую дату.</p>
+<h2 id="_2">Выселение</h2>
+<p>POST <code>/api/accommodations/1/check-out/</code>:</p>
+<pre><code class="language-json">{&quot;actual_check_out&quot;: &quot;2026-11-04&quot;}
+</code></pre>
+<p>Ответ 200 имеет ту же структуру заселения с заполненным actual_check_out.
+Выезд может быть раньше или позже плана, но строго позже заезда.
+Проверяются конфликты с другими заселениями номера и гостей, повторное выселение
+запрещено. История и тариф сохраняются, записи не удаляются.</p>
+<h2 id="_3">Сотрудники и уборка</h2>
+<p>Приём — POST <code>/api/employees/</code> с ФИО и hired_on:</p>
+<pre><code class="language-json">{&quot;last_name&quot;: &quot;Тестовая&quot;, &quot;first_name&quot;: &quot;Анна&quot;, &quot;hired_on&quot;: &quot;2026-01-01&quot;}
+</code></pre>
+<p>Увольнение — POST <code>/api/employees/1/dismiss/</code>:</p>
+<pre><code class="language-json">{&quot;dismissed_on&quot;: &quot;2026-10-21&quot;}
+</code></pre>
+<p>При отсутствии даты берётся сегодняшний день Europe/Moscow. Увольнение не может
+быть раньше приёма или в будущем; состоявшееся увольнение нельзя отменить.
+Будущие назначения удаляются, действующие закрываются датой увольнения,
+прошлые сохраняются. Связанный User деактивируется. PATCH dismissed_on использует
+тот же сервис.</p>
+<p>POST <code>/api/cleaning-schedules/</code>:</p>
+<pre><code class="language-json">{&quot;employee&quot;: 1, &quot;floor&quot;: 1, &quot;weekday&quot;: 0, &quot;valid_from&quot;: &quot;2026-11-01&quot;, &quot;valid_to&quot;: null}
+</code></pre>
+<p>Дни недели: 0 — понедельник, 6 — воскресенье. Период <code>[valid_from, valid_to)</code>,
+NULL означает бессрочное назначение. Нельзя назначать уволенного сотрудника,
+начинать до его приёма, задавать окончание не позже начала или пересекающуюся
+запись с теми же employee/floor/weekday. На этаж допускаются разные сотрудники.</p>
+<p>PATCH <code>/api/cleaning-schedules/&lt;id&gt;/</code> меняет будущее назначение непосредственно.
+Для уже начавшегося создаёт новую версию и закрывает старую, сохраняя историю.
+По умолчанию новая версия начинается сегодня. Завершённое назначение неизменно.
+DELETE отменяет будущее назначение либо закрывает начавшееся сегодняшней датой;
+завершённое удалить нельзя. Проверки и запись выполняются в транзакции с блокировками.</p>
+<h2 id="django-admin">Django Admin</h2>
+<p>Все восемь моделей доступны для просмотра при наличии стандартного права view.
+Accommodation, Stay, CleaningSchedule, Room, RoomType и Employee нельзя создавать,
+изменять или удалять через Admin, включая суперпользователя. У Room и RoomType
+ограничение предотвращает обход защиты типа/этажа и вместимости, у Employee —
+обход увольнения и проверки дат назначений. Их изменение выполняется через API.
+Floor и Guest используют стандартный Admin с ограничениями модели и PROTECT.
+Прямой ORM и shell предназначены для доверенного разработчика и могут обходить
+проверки сериализаторов; универсальная защита прямых ORM-записей здесь не реализована.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
