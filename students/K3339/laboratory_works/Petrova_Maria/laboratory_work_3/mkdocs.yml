@@ -1,8 +1,18 @@
 site_name: Администратор гостиницы — лабораторная №3
 site_url: https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/
 site_description: Отчёт по разработке системы администрирования гостиницы на Django, DRF и PostgreSQL
+# Каждый пункт меню соответствует отдельному существующему Markdown-файлу.
+# Явные .html-адреса исключают зависимость от обработки каталогов хостингом.
+use_directory_urls: false
 nav:
-  - Отчёт по лабораторной работе №3: index.md
+  - Цель работы: index.md
+  - Описание приложения: application.md
+  - Модели базы данных: database.md
+  - REST API: api.md
+  - Пользовательский интерфейс: interface.md
+  - Аналитические запросы: analytics.md
+  - Квартальный отчёт: quarterly_report.md
+  - Вывод: conclusion.md
 theme:
   name: mkdocs
   locale: ru
