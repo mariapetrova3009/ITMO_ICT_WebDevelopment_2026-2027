@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Отчёт по разработке системы администрирования гостиницы на Django, DRF и PostgreSQL">
         
-        
+        <link rel="canonical" href="https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/">
         <link rel="shortcut icon" href="img/favicon.ico">
         <title>Администратор гостиницы — лабораторная №3</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +59,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2" class="nav-link">2. Описание разработанного приложения</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2" class="nav-link">2. Описание приложения</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -99,7 +99,7 @@
 <p>Цель работы — разработать систему администрирования гостиницы с использованием Django,
 Django REST Framework и PostgreSQL. В ходе работы я создала базу данных, REST API
 и страницы для основных действий администратора.</p>
-<h2 id="2">2. Описание разработанного приложения</h2>
+<h2 id="2">2. Описание приложения</h2>
 <p>В приложении <code>hotel_api</code> я реализовала управление гостиничными номерами и регистрацию
 постояльцев. Система позволяет заселять группы гостей, оформлять выселение, учитывать
 сотрудников и составлять расписание уборки этажей. Для получения сводных данных
@@ -133,6 +133,10 @@ Django REST Framework и PostgreSQL. В ходе работы я создала 
 <h2 id="4-rest-api">4. Реализация REST API</h2>
 <p>REST API я реализовала с помощью Django REST Framework. Запросы к гостинице имеют
 общий префикс <code>/api/</code>, данные передаются в формате JSON.</p>
+<p>Адреса API ниже приведены как текстовые примеры HTTP-запросов. Они относятся
+к запущенному Django-приложению. GitHub Pages публикует только отчёт MkDocs
+и не обрабатывает запросы к <code>/api/</code>. Для переходов по отчёту используется
+оглавление страницы.</p>
 <p>Основную реализацию распределила по четырём файлам:</p>
 <ul>
 <li><code>models.py</code> — модели базы данных, связи и ограничения.</li>
@@ -141,8 +145,9 @@ Django REST Framework и PostgreSQL. В ходе работы я создала 
 <li><code>services.py</code> — основная логика заселения, выселения, увольнения сотрудника и расчёта квартального отчёта.</li>
 </ul>
 <p>Например, <code>GET /api/rooms/</code> возвращает номера, а <code>POST /api/rooms/</code> создаёт новый
-номер. Аналогично, <code>/api/guests/</code> используется для получения списка и регистрации
-гостей, а <code>/api/employees/</code> — для работы с сотрудниками. Для отдельных номеров,
+номер. Запрос <code>GET /api/guests/</code> возвращает список гостей, а <code>POST /api/guests/</code>
+регистрирует гостя. Для сотрудников предусмотрены <code>GET /api/employees/</code>
+и <code>POST /api/employees/</code>. Для отдельных номеров,
 гостей и сотрудников доступны просмотр, изменение и удаление по ID с учётом
 ограничений приложения.</p>
 <p>Заселение выполняется запросом <code>POST /api/check-in/</code>. В нём передаются ID номера,
@@ -151,10 +156,23 @@ Django REST Framework и PostgreSQL. В ходе работы я создала 
 <code>POST /api/accommodations/&lt;id&gt;/check-out/</code>, указав фактическую дату выезда.
 Заселения и связи с гостями доступны для чтения; их создание выполняется через
 операцию заселения.</p>
-<p>Для расписания уборки предусмотрен адрес <code>/api/cleaning-schedules/</code>, для просмотра
+<p>Для просмотра расписания уборки используется <code>GET /api/cleaning-schedules/</code>,
+для добавления назначения — <code>POST /api/cleaning-schedules/</code>, для просмотра
 расписания сотрудника — <code>GET /api/employees/&lt;id&gt;/schedule/</code>. Увольнение оформляется
 через <code>POST /api/employees/&lt;id&gt;/dismiss/</code>: система также завершает действующие
 и отменяет будущие назначения на уборку.</p>
+<h3 id="crud-">Пример результата CRUD-запроса</h3>
+<p>Пример запроса списка номеров:</p>
+<pre><code class="language-http">GET /api/rooms/
+</code></pre>
+<p>В ответе возвращается массив номеров с их ID, этажами, типами и телефонами.</p>
+<!-- Место для скриншота ответа на GET /api/rooms/.
+Добавить файл docs/images/crud.png и убрать маркеры комментария вокруг вставки ниже.
+![Результат запроса списка номеров](images/crud.png)
+
+Рисунок 6 — Результат запроса списка гостиничных номеров через REST API.
+-->
+
 <h2 id="5">5. Пользовательский интерфейс</h2>
 <p>Для повседневных действий я создала три страницы в общем оформлении с помощью
 Bootstrap. JavaScript загружает данные через REST API и отправляет формы без
@@ -195,27 +213,27 @@ Bootstrap. JavaScript загружает данные через REST API и о�
 <tbody>
 <tr>
 <td>Гости определённого номера за период</td>
-<td><code>/api/analytics/room-guests/</code> — <code>room_id</code>, <code>date_from</code>, <code>date_to</code></td>
+<td><code>GET /api/analytics/room-guests/</code> — <code>room_id</code>, <code>date_from</code>, <code>date_to</code></td>
 <td>Список уникальных гостей номера за период и их количество.</td>
 </tr>
 <tr>
 <td>Количество гостей из города</td>
-<td><code>/api/analytics/guests-by-city/</code> — <code>city</code></td>
+<td><code>GET /api/analytics/guests-by-city/</code> — <code>city</code></td>
 <td>Количество зарегистрированных гостей из указанного города, включая гостей без заселений.</td>
 </tr>
 <tr>
 <td>Сотрудник, назначенный на уборку этажа гостя</td>
-<td><code>/api/analytics/guest-cleaner/</code> — <code>guest_id</code>, <code>date</code></td>
+<td><code>GET /api/analytics/guest-cleaner/</code> — <code>guest_id</code>, <code>date</code></td>
 <td>Номер и этаж проживания гостя на выбранную дату, список назначенных уборщиков.</td>
 </tr>
 <tr>
 <td>Свободные номера за период</td>
-<td><code>/api/analytics/available-rooms/</code> — <code>date_from</code>, <code>date_to</code></td>
+<td><code>GET /api/analytics/available-rooms/</code> — <code>date_from</code>, <code>date_to</code></td>
 <td>Номера, свободные в течение всего указанного периода, и их количество.</td>
 </tr>
 <tr>
 <td>Гости, проживавшие одновременно</td>
-<td><code>/api/analytics/concurrent-guests/</code> — <code>guest_id</code></td>
+<td><code>GET /api/analytics/concurrent-guests/</code> — <code>guest_id</code></td>
 <td>Гости, чьи проживания пересекались с проживаниями выбранного гостя в гостинице, включая другие номера.</td>
 </tr>
 </tbody>
@@ -329,5 +347,5 @@ Django REST Framework и PostgreSQL. Я научилась связывать м
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-30 10:06:55.039960+00:00
+Build Date UTC : 2026-10-30 10:11:44.756744+00:00
 -->
