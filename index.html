@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Django, DRF, PostgreSQL, Djoser и ORM">
+        <meta name="description" content="Отчёт по разработке системы администрирования гостиницы на Django, DRF и PostgreSQL">
         
         
         <link rel="shortcut icon" href="img/favicon.ico">
@@ -25,43 +25,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href=".">Администратор гостиницы — лабораторная №3</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="." class="nav-link active" aria-current="page">Главная и запуск</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="practice_3_1/" class="nav-link">Практика 3.1</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="practice_3_2/" class="nav-link">Практика 3.2</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="database/" class="nav-link">Модель данных</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="api/" class="nav-link">CRUD API</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="business_logic/" class="nav-link">Бизнес-логика</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="analytics/" class="nav-link">Аналитика</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="quarterly_report/" class="nav-link">Квартальный отчёт</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="authentication/" class="nav-link">Авторизация</a>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
@@ -69,16 +35,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="practice_3_1/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -97,21 +53,37 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#no3" class="nav-link">Лабораторная работа №3</a>
+            <li class="nav-item" data-bs-level="1"><a href="#no3" class="nav-link">Лабораторная работа №3 «Администратор гостиницы»</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">Технологии и структура</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">Установка гостиницы</a>
+            <li class="nav-item" data-bs-level="2"><a href="#1" class="nav-link">1. Цель работы</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">Основные команды</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2" class="nav-link">2. Описание разработанного приложения</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#_4" class="nav-link">Документация</a>
+            <li class="nav-item" data-bs-level="2"><a href="#3" class="nav-link">3. Модели базы данных</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4-rest-api" class="nav-link">4. Реализация REST API</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#5" class="nav-link">5. Пользовательский интерфейс</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#6" class="nav-link">6. Аналитические запросы</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#7" class="nav-link">7. Квартальный отчёт</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#8" class="nav-link">8. Вывод</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -122,106 +94,160 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="no3">Лабораторная работа №3</h1>
-<p>Тема: «Реализация серверной части приложения средствами Django и Django REST Framework».
-Вариант №1 — «Администратор гостиницы».</p>
-<p>Цель — создать серверное API управления номерным фондом, гостями, заселениями,
-сотрудниками и уборкой, закрепить ORM, связи моделей и сериализацию, реализовать
-аналитику, квартальный отчёт и авторизацию.</p>
-<h2 id="_1">Технологии и структура</h2>
+<h1 id="no3">Лабораторная работа №3 «Администратор гостиницы»</h1>
+<h2 id="1">1. Цель работы</h2>
+<p>Цель работы — разработать систему администрирования гостиницы с использованием Django,
+Django REST Framework и PostgreSQL. В ходе работы я создала базу данных, REST API
+и страницы для основных действий администратора.</p>
+<h2 id="2">2. Описание разработанного приложения</h2>
+<p>В приложении <code>hotel_api</code> я реализовала управление гостиничными номерами и регистрацию
+постояльцев. Система позволяет заселять группы гостей, оформлять выселение, учитывать
+сотрудников и составлять расписание уборки этажей. Для получения сводных данных
+я добавила пять аналитических запросов и квартальный отчёт.</p>
+<p>Для хранения данных использовала PostgreSQL. При заселении система проверяет
+вместимость номера, даты и пересечения с другими проживаниями. Тариф сохраняется
+в записи заселения, поэтому изменение цены типа номера не меняет стоимость прошлых
+проживаний. При выселении записывается фактическая дата выезда, а история сохраняется.</p>
+<p>Для работы с гостиницей требуется активная учётная запись с правами сотрудника
+(<code>is_staff=True</code>). В браузере используется сессия Django, а для запросов к API
+также доступна авторизация по токену.</p>
+<h2 id="3">3. Модели базы данных</h2>
+<p>Я разделила данные приложения на восемь основных моделей:</p>
 <ul>
-<li>Django 5.2: модели, ORM, миграции, транзакции, административная панель и сессии.</li>
-<li>Django REST Framework 3.16: ModelSerializer, Serializer, Generic API Views и APIView.</li>
-<li>PostgreSQL и psycopg 3: основная база гостиницы.</li>
-<li>Djoser 2.3 и стандартный DRF TokenAuthentication: регистрация и токены.</li>
-<li>python-dotenv: параметры локального окружения.</li>
-<li>MkDocs 1.6: эта документация.</li>
+<li><code>RoomType</code> — тип номера: название, вместимость и цена за ночь.</li>
+<li><code>Floor</code> — этаж гостиницы с уникальным номером.</li>
+<li><code>Room</code> — гостиничный номер, его этаж, тип и телефон.</li>
+<li><code>Guest</code> — ФИО постояльца, паспортные данные и город прибытия.</li>
+<li><code>Accommodation</code> — заселение в номер: дата заезда, плановая и фактическая даты выезда, сохранённый тариф.</li>
+<li><code>Stay</code> — связь конкретного гостя с заселением.</li>
+<li><code>Employee</code> — ФИО сотрудника, даты приёма и увольнения, необязательная связь с учётной записью.</li>
+<li><code>CleaningSchedule</code> — назначение сотрудника на уборку этажа: день недели и период действия.</li>
 </ul>
-<p><code>practical_works/</code> содержит практику ORM 3.1 и ранее созданные учебные модели автомобилей.
-<code>practice_3_2/</code> — отдельный проект воинов. <code>hotel_api/</code> — основная лабораторная.
-Каждый Django-проект запускается отдельно. Главная база гостиницы — PostgreSQL;
-практические проекты используют свои настройки и SQLite.</p>
-<h2 id="_2">Установка гостиницы</h2>
-<p>Из папки <code>laboratory_work_3</code>:</p>
-<pre><code class="language-bash">cd hotel_api
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-</code></pre>
-<p>При первом запуске, если <code>.env</code> ещё отсутствует, скопируйте <code>.env.example</code> в <code>.env</code>.
-Существующий <code>.env</code> сохраняйте. Укажите реквизиты своей PostgreSQL: <code>DB_NAME</code>, <code>DB_USER</code>,
-<code>DB_PASSWORD</code>, <code>DB_HOST</code>, <code>DB_PORT</code>. Для существующего Docker-контейнера запустите
-Docker Desktop и сам контейнер; используйте его опубликованный порт. Compose-файл
-в лабораторной не поставляется, новая база автоматически не создаётся.</p>
-<p>При отдельной установке PostgreSQL администратор создаёт роль и базу, если их ещё нет:</p>
-<pre><code class="language-sql">CREATE ROLE hotel_user LOGIN;
-\password hotel_user
-CREATE DATABASE hotel_db OWNER hotel_user;
-</code></pre>
-<p><code>\password</code> запрашивает пароль интерактивно. Не меняйте пароли существующих ролей.</p>
-<p>Дополнительно <code>.env</code> поддерживает <code>SECRET_KEY</code> и <code>DEBUG</code>. По умолчанию включён DEBUG
-и используется учебный локальный ключ, чтобы сохранить прежний запуск. Для внешнего
-размещения задайте собственный секрет и <code>DEBUG=False</code>; текущие ALLOWED_HOSTS разрешают
-только localhost и 127.0.0.1. Реальные секреты не включайте в Git.</p>
-<pre><code class="language-bash">python manage.py check
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-</code></pre>
-<p><code>migrate</code> также создаёт стандартную таблицу токенов DRF. Структура восьми моделей
-гостиницы не менялась. Существующие миграции сохранены.</p>
-<p>Откройте <code>/api-auth/login/</code> для входа администратора в браузере, <code>/api/rooms/</code>
-для API или <code>/admin/</code> для административной панели. Корневой <code>/</code> не имеет страницы.
-Регистрация через Djoser описана в <a href="authentication/">разделе авторизации</a>.</p>
-<h2 id="_3">Основные команды</h2>
+<p>Каждый номер относится к одному этажу и одному типу. При этом у этажа и типа может
+быть несколько номеров. Одно заселение относится к одному номеру, но может включать
+нескольких гостей. Через <code>Stay</code> гость связан со своими заселениями, что позволяет
+хранить историю повторных приездов.</p>
+<p>Сотрудники и этажи связаны через <code>CleaningSchedule</code>: сотрудник может убирать несколько
+этажей, а на одном этаже могут работать разные сотрудники. В расписании я храню
+не только день недели, но и даты начала и окончания назначения.</p>
+<h2 id="4-rest-api">4. Реализация REST API</h2>
+<p>REST API я реализовала с помощью Django REST Framework. Запросы к гостинице имеют
+общий префикс <code>/api/</code>, данные передаются в формате JSON.</p>
+<p>Основную реализацию распределила по четырём файлам:</p>
+<ul>
+<li><code>models.py</code> — модели базы данных, связи и ограничения.</li>
+<li><code>serializers.py</code> — проверка входных данных и преобразование данных для API.</li>
+<li><code>views.py</code> — обработка запросов и формирование ответов.</li>
+<li><code>services.py</code> — основная логика заселения, выселения, увольнения сотрудника и расчёта квартального отчёта.</li>
+</ul>
+<p>Например, <code>GET /api/rooms/</code> возвращает номера, а <code>POST /api/rooms/</code> создаёт новый
+номер. Аналогично, <code>/api/guests/</code> используется для получения списка и регистрации
+гостей, а <code>/api/employees/</code> — для работы с сотрудниками. Для отдельных номеров,
+гостей и сотрудников доступны просмотр, изменение и удаление по ID с учётом
+ограничений приложения.</p>
+<p>Заселение выполняется запросом <code>POST /api/check-in/</code>. В нём передаются ID номера,
+массив ID гостей и даты проживания. Список заселений можно получить через
+<code>GET /api/accommodations/</code>, а выселение оформить через
+<code>POST /api/accommodations/&lt;id&gt;/check-out/</code>, указав фактическую дату выезда.
+Заселения и связи с гостями доступны для чтения; их создание выполняется через
+операцию заселения.</p>
+<p>Для расписания уборки предусмотрен адрес <code>/api/cleaning-schedules/</code>, для просмотра
+расписания сотрудника — <code>GET /api/employees/&lt;id&gt;/schedule/</code>. Увольнение оформляется
+через <code>POST /api/employees/&lt;id&gt;/dismiss/</code>: система также завершает действующие
+и отменяет будущие назначения на уборку.</p>
+<h2 id="5">5. Пользовательский интерфейс</h2>
+<p>Для повседневных действий я создала три страницы в общем оформлении с помощью
+Bootstrap. JavaScript загружает данные через REST API и отправляет формы без
+перезагрузки страницы. Результат операции или ошибка отображаются сообщением.</p>
+<h3 id="_1">Номера</h3>
+<p>На странице <code>/</code> выводится таблица номеров с этажом, типом, вместимостью, ценой за ночь
+и телефоном. Ниже расположена форма добавления номера. Этажи и типы загружаются
+из API; перед созданием номера эти справочники должны быть заполнены.</p>
+<p><img alt="Страница гостиничных номеров" src="images/rooms.png" /></p>
+<p><em>Рисунок 1 — Страница гостиничных номеров.</em></p>
+<h3 id="_2">Гости</h3>
+<p>На странице <code>/guests/</code> я разместила список постояльцев и форму регистрации.
+В форме указываются ФИО, серия и номер паспорта, а также город прибытия.
+После сохранения список гостей обновляется.</p>
+<p><img alt="Страница постояльцев" src="images/guests.png" /></p>
+<p><em>Рисунок 2 — Страница постояльцев.</em></p>
+<h3 id="_3">Заселение</h3>
+<p>На странице <code>/check-in/</code> выбираются номер, гости, дата заезда и плановая дата выезда.
+Для выбора нескольких гостей я добавила выпадающий список с чекбоксами и поиском
+по ФИО. Выбор выполняется обычными кликами, а закрытое поле показывает количество
+выбранных гостей. При отправке формы API получает массив их ID.</p>
+<p>После успешного заселения форма очищается. Вместимость номера, корректность дат
+и занятость проверяются на сервере. Выселение, работа с сотрудниками, аналитика
+и квартальный отчёт реализованы через API.</p>
+<p><img alt="Форма заселения" src="images/check-in.png" /></p>
+<p><em>Рисунок 3 — Форма заселения с выбором гостей.</em></p>
+<h2 id="6">6. Аналитические запросы</h2>
+<p>Я реализовала пять запросов для получения данных о гостях, номерах и уборке.
+Все они выполняются методом <code>GET</code> и возвращают JSON.</p>
 <table>
 <thead>
 <tr>
-<th>Команда из hotel_api</th>
-<th>Назначение</th>
+<th>Запрос</th>
+<th>Адрес API и параметры</th>
+<th>Результат</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>python manage.py check</code></td>
-<td>Проверка конфигурации</td>
+<td>Гости определённого номера за период</td>
+<td><code>/api/analytics/room-guests/</code> — <code>room_id</code>, <code>date_from</code>, <code>date_to</code></td>
+<td>Список уникальных гостей номера за период и их количество.</td>
 </tr>
 <tr>
-<td><code>python manage.py makemigrations --check --dry-run</code></td>
-<td>Поиск незаписанных изменений моделей</td>
+<td>Количество гостей из города</td>
+<td><code>/api/analytics/guests-by-city/</code> — <code>city</code></td>
+<td>Количество зарегистрированных гостей из указанного города, включая гостей без заселений.</td>
 </tr>
 <tr>
-<td><code>python manage.py showmigrations</code></td>
-<td>Состояние миграций</td>
+<td>Сотрудник, назначенный на уборку этажа гостя</td>
+<td><code>/api/analytics/guest-cleaner/</code> — <code>guest_id</code>, <code>date</code></td>
+<td>Номер и этаж проживания гостя на выбранную дату, список назначенных уборщиков.</td>
 </tr>
 <tr>
-<td><code>python manage.py migrate</code></td>
-<td>Применение миграций</td>
+<td>Свободные номера за период</td>
+<td><code>/api/analytics/available-rooms/</code> — <code>date_from</code>, <code>date_to</code></td>
+<td>Номера, свободные в течение всего указанного периода, и их количество.</td>
 </tr>
 <tr>
-<td><code>python manage.py createsuperuser</code></td>
-<td>Создание администратора</td>
-</tr>
-<tr>
-<td><code>python manage.py seed_hotel</code></td>
-<td>Необязательные искусственные справочники</td>
-</tr>
-<tr>
-<td><code>python manage.py runserver</code></td>
-<td>Локальный сервер</td>
+<td>Гости, проживавшие одновременно</td>
+<td><code>/api/analytics/concurrent-guests/</code> — <code>guest_id</code></td>
+<td>Гости, чьи проживания пересекались с проживаниями выбранного гостя в гостинице, включая другие номера.</td>
 </tr>
 </tbody>
 </table>
-<p><code>seed_hotel</code> создаёт типы, этажи, номера DEMO-1..3, двух гостей и двух сотрудников.
-Он не создаёт аккаунты, заселения и уборки; повторный запуск не перезаписывает найденные записи.
-Не запускайте его, если демонстрационные данные не нужны.</p>
-<h2 id="_4">Документация</h2>
-<p>Из <code>laboratory_work_3</code>, после установки requirements гостиницы:</p>
-<pre><code class="language-bash">hotel_api/.venv/bin/python -m mkdocs serve
-hotel_api/.venv/bin/python -m mkdocs build --strict
-</code></pre>
-<p>Локальная документация доступна на http://127.0.0.1:8000; при одновременно работающем
-Django выберите <code>mkdocs serve -a 127.0.0.1:8001</code>. Сборка помещается в <code>site/</code>, исключённый из Git.</p></div>
+<p>В расчётах используется фактическая дата выезда, а если она не указана — плановая.
+День выезда не входит в период проживания: в этот день номер можно использовать
+для нового заселения. Повторяющиеся гости в списках исключаются.</p>
+<p>Например, запрос <code>GET /api/analytics/available-rooms/?date_from=2026-11-01&amp;date_to=2026-11-05</code>
+покажет номера, свободные на весь выбранный период.</p>
+<p><img alt="Результат аналитического API-запроса" src="images/analytics.png" /></p>
+<p><em>Рисунок 4 — Пример результата аналитического API-запроса.</em></p>
+<h2 id="7">7. Квартальный отчёт</h2>
+<p>Для квартального отчёта я добавила запрос
+<code>GET /api/reports/quarterly/?year=2026&amp;quarter=4</code>. Год и квартал передаются
+в параметрах, результат возвращается в формате JSON.</p>
+<p>Отчёт содержит количество уникальных гостей по каждому номеру, рассчитанную
+стоимость проживания по номерам и общую сумму за квартал. Отдельно выводится
+количество номеров на каждом этаже, включая этажи без номеров.</p>
+<p>Стоимость рассчитывается по сохранённому тарифу и количеству ночей, которые попали
+в выбранный квартал. Для группового заселения цена номера учитывается один раз,
+а не умножается на количество гостей. Если фактический выезд ещё не оформлен,
+используется плановая дата, поэтому сумма является расчётной стоимостью,
+а не учётом полученных платежей.</p>
+<p><img alt="Результат квартального отчёта" src="images/quarterly-report.png" /></p>
+<p><em>Рисунок 5 — Квартальный отчёт по гостинице.</em></p>
+<h2 id="8">8. Вывод</h2>
+<p>В ходе лабораторной работы я создала систему «Администратор гостиницы» на Django,
+Django REST Framework и PostgreSQL. Я научилась связывать модели и хранить историю
+заселений гостей и назначений сотрудников на уборку. Реализовала REST API с проверкой
+данных и отдельной логикой основных операций. Для работы с номерами, гостями
+и заселением создала страницы, которые обращаются к API. Также я закрепила работу
+с Django ORM при подготовке аналитических запросов и квартального отчёта.</p></div>
             </div>
         </div>
 
@@ -303,5 +329,5 @@ Django выберите <code>mkdocs serve -a 127.0.0.1:8001</code>. Сборк�
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-29 08:21:51.519910+00:00
+Build Date UTC : 2026-10-30 10:06:55.039960+00:00
 -->
