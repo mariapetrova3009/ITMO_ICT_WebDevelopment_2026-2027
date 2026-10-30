@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/</loc>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/index.html</loc>
+         <lastmod>2026-10-30</lastmod>
+    </url>
+    <url>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/analytics.html</loc>
+         <lastmod>2026-10-30</lastmod>
+    </url>
+    <url>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/api.html</loc>
+         <lastmod>2026-10-30</lastmod>
+    </url>
+    <url>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/application.html</loc>
+         <lastmod>2026-10-30</lastmod>
+    </url>
+    <url>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/conclusion.html</loc>
+         <lastmod>2026-10-30</lastmod>
+    </url>
+    <url>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/database.html</loc>
+         <lastmod>2026-10-30</lastmod>
+    </url>
+    <url>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/interface.html</loc>
+         <lastmod>2026-10-30</lastmod>
+    </url>
+    <url>
+         <loc>https://mariapetrova3009.github.io/ITMO_ICT_WebDevelopment_2026-2027/quarterly_report.html</loc>
          <lastmod>2026-10-30</lastmod>
     </url>
 </urlset>
